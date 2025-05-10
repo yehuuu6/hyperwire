@@ -10,6 +10,13 @@
         "starter",
         "starter-kit"
     ],
+    "authors": [
+        {
+            "name": "Eren Aydın",
+            "email": "therenaydin@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
