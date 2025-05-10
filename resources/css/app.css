@@ -1,0 +1,87 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-blue-700 cursor-pointer hover:outline outline-blue-600 hover:bg-blue-600 transition-all duration-300 text-white rounded-md;
+    }
+
+    .btn-secondary {
+        @apply bg-gray-800 cursor-pointer hover:outline outline-blue-500/60 hover:bg-gray-900 transition-all duration-300 text-white rounded-md;
+    }
+}
+
+.spinner_V8m1 {
+    transform-origin: center;
+    animation: spinner_zKoa 2s linear infinite;
+}
+
+.spinner_V8m1 circle {
+    stroke-linecap: round;
+    animation: spinner_YpZS 1.5s ease-in-out infinite;
+}
+@keyframes spinner_zKoa {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner_YpZS {
+    0% {
+        stroke-dasharray: 0 150;
+        stroke-dashoffset: 0;
+    }
+
+    47.5% {
+        stroke-dasharray: 42 150;
+        stroke-dashoffset: -16;
+    }
+
+    95%,
+    100% {
+        stroke-dasharray: 42 150;
+        stroke-dashoffset: -59;
+    }
+}
+
+.auth-image {
+    background-image: url('/public/images/auth.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.animate-pulse-slow {
+    animation: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse-slower {
+    animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
