@@ -9,8 +9,9 @@ A clean Laravel Livewire starter kit without Flux or Volt and code mess!
 - **No Flux or Volt:** Enjoy a streamlined development experience without the added complexity of Flux or Volt.
 - **Minimal Boilerplate:** Focus on your application's core logic with minimal, easy-to-understand boilerplate code and components.
 - **Email OTP Verification:** Enhanced security with Email OTP (One-Time Password) verification instead of traditional link-based verification.
-  ![Email OTP Verification](.github/opt.png)
+![Email OTP Verification](.github/opt.png)
 - **Rate Limiter:** Limit user actions using the [Livewire Rate Limiter](https://github.com/yehuuu6/livewire-rate-limiting) package.
+- **Toast Notifications:** Beautiful toast notifications thanks to the [Livewire Toaster](https://github.com/masmerise/livewire-toaster) package.
 
 
 ## Installation
