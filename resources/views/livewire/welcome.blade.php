@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gray-900 text-white flex items-center justify-center p-10">
+<div class="min-h-svh text-white flex items-center justify-center p-10">
     <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
         <div class="absolute top-0 left-1/4 w-1/2 h-1/2 bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow">
         </div>

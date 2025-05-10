@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <main class="min-h-svh antialiased font-inter bg-white text-gray-900">
+    <main class="min-h-svh antialiased font-inter bg-gray-900 text-gray-900">
         <div
             class="h-svh relative bg-gradient-to-br from-gray-900 to-gray-800 text-gray-300 flex flex-col justify-center items-center">
             <div aria-hidden="true" class="absolute inset-0 pointer-events-none">

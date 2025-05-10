@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <main class="min-h-svh antialiased font-inter bg-white text-gray-900">
+    <main class="min-h-svh antialiased font-inter bg-gray-900 text-gray-900">
         {{ $slot }}
     </main>
     <x-toaster-hub />
