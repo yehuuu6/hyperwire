@@ -1,4 +1,8 @@
 # Hyper Wire Starter Kit
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/yehuuu6/hyperwire.svg?style=flat-square)](https://packagist.org/packages/yehuuu6/hyperwire)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+![GitHub last commit](https://img.shields.io/github/last-commit/yehuuu6/hyperwire)
+<a href="https://herd.laravel.com/new?starter-kit=yehuuu6/hyperwire"><img src="https://img.shields.io/badge/Install%20with%20Herd-f55247?logo=laravel&logoColor=white"></a><br>
 
 A clean Laravel Livewire starter kit without Flux or Volt and code mess!
 
