@@ -19,11 +19,9 @@ class Register extends Component
 
     public string $name;
     public string $surname;
-    public string $username;
     public string $email;
     public string $password;
     public string $password_confirmation;
-    public string $company;
     public bool $terms;
 
     public function register()
@@ -39,10 +37,8 @@ class Register extends Component
             $this->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'surname' => ['required', 'string', 'max:255'],
-                'username' => ['required', 'string', 'max:255', 'unique:users'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
-                'company' => ['required', 'string', 'max:255'],
                 'terms' => ['required', 'accepted'],
             ]);
         } catch (ValidationException $exception) {
@@ -53,10 +49,8 @@ class Register extends Component
         $attributes = [
             'name' => $this->name,
             'surname' => $this->surname,
-            'username' => $this->username,
             'email' => $this->email,
             'password' => $this->password,
-            'company_name' => $this->company,
         ];
 
         $user = User::create($attributes);

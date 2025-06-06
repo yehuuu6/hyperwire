@@ -17,10 +17,6 @@
             <x-form.input-text label="Name" name="name" placeholder="John" required />
             <x-form.input-text label="Surname" name="surname" placeholder="Doe" required />
         </div>
-        <div class="flex items-center gap-3">
-            <x-form.input-text label="Username" name="username" placeholder="johndoe6" required />
-            <x-form.input-text label="Company Name" name="company" placeholder="Your Company" required />
-        </div>
         <x-form.input-text label="Email Address" name="email" placeholder="hello@example.com" required />
         <x-form.input-text label="Password" type="password" name="password" placeholder="********" required />
         <x-form.input-text label="Confirm Password" type="password" name="password_confirmation" required
