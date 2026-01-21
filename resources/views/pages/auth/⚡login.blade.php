@@ -1,3 +1,64 @@
+<?php
+
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Masmerise\Toaster\Toaster;
+
+new
+#[Layout('layouts.auth')]
+#[Title('Login - Hyper Wire')]
+class extends Component
+{
+    use WithRateLimiting;
+
+    public string $email;
+
+    public string $password;
+
+    public bool $remember = false;
+
+    public function logout()
+    {
+        Auth::logout();
+
+        session()->invalidate();
+
+        session()->regenerateToken();
+
+        return redirect()->route('login')->success('You have been logged out');
+    }
+
+    public function authenticate()
+    {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            Toaster::error("You have made too many requests. Please try again in {$exception->minutesUntilAvailable} minutes.");
+
+            return;
+        }
+
+        $credentials = $this->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials, $this->remember)) {
+            session()->regenerate();
+
+            return redirect(route('home'))->success('Logged in as '.Auth::user()->name.' '.Auth::user()->surname.'.');
+        }
+
+        Toaster::error('Invalid credentials');
+
+    }
+};
+?>
+
 <div class="p-6 xl:p-10 rounded-lg flex-1">
     <div class="flex items-center justify-between gap-5">
         <div class="size-9 rounded-full bg-blue-700 shadow-blue-500/10">

@@ -1,26 +1,30 @@
 <?php
 
-use App\Livewire\Welcome;
-use App\Livewire\Auth\Login;
-use App\Livewire\Auth\Verify;
-use App\Livewire\Auth\Register;
-use App\Livewire\Auth\ResetPassword;
-use App\Livewire\Auth\ForgotPassword;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', Welcome::class)->name('home');
+Route::livewire('/', 'pages::welcome')->name('home');
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', Login::class)->name('login');
-    Route::get('/register', Register::class)->name('register');
+    Route::livewire('/login', 'pages::auth.login')->name('login');
+    Route::livewire('/register', 'pages::auth.register')->name('register');
+
+    Route::livewire('/forgot-password', 'pages::auth.forgot-password')->name('forgot-password');
+    Route::livewire('/reset-password/{token}', 'pages::auth.reset-password')->name('password.reset');
 });
 
-Route::delete('/logout', [Login::class, 'logout'])->middleware('auth')->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', function () {
+        Auth::logout();
 
-Route::get('/email/verify', Verify::class)->middleware('auth')->name('verification.notice');
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
 
-Route::post('/email/verification-notification', [Verify::class, 'sendVerifyMail'])
-    ->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+        return redirect()->route('login');
+    })->name('logout');
 
-Route::get('/forgot-password', ForgotPassword::class)->name('forgot-password');
-Route::get('/reset-password/{token}', ResetPassword::class)->middleware('guest')->name('password.reset');
+    Route::post('/email/verification-notification', ['pages::auth.verify', 'sendVerifyMail'])
+        ->middleware('throttle:6,1')->name('verification.send');
+
+    Route::livewire('/email/verify', 'pages::auth.verify')->name('verification.notice');
+});

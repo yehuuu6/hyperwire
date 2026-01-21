@@ -1,3 +1,13 @@
+<?php
+
+use Livewire\Attributes\Title;
+use Livewire\Component;
+
+new #[Title('Your Laravel Livewire Starter Kit - Hyper Wire')] class extends Component {
+    //
+};
+?>
+
 <div class="min-h-svh text-white flex items-center justify-center p-10">
     <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
         <div class="absolute top-0 left-1/4 w-1/2 h-1/2 bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow">
@@ -9,11 +19,11 @@
         <!-- Left Column -->
         <div class="w-full md:w-1/2 p-8 md:p-12 space-y-8">
             <div>
-                <h2 class="text-3xl font-bold mb-6">No Flux, no Volt just <span class="text-blue-400">Perfection</span>
+                <h2 class="text-3xl font-bold mb-6">No Flux, just <span class="text-blue-400">Perfection</span>
                 </h2>
                 <ul class="space-y-6">
                     <li class="flex items-start">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <img src="{{ asset('images/laravel-icon.png') }}" alt="Laravel" class="h-6 w-6 mr-3 mt-1">
                         </div>
                         <div>
@@ -22,16 +32,16 @@
                         </div>
                     </li>
                     <li class="flex items-start">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <img src="{{ asset('images/livewire-icon.png') }}" alt="Livewire" class="h-6 w-6 mr-3 mt-1">
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold">Livewire 3</h3>
-                            <p class="text-gray-400 text-sm">Powerful, dynamic interfaces</p>
+                            <h3 class="text-lg font-semibold">Livewire 4</h3>
+                            <p class="text-gray-400 text-sm">New, powerful and dynamic interfaces</p>
                         </div>
                     </li>
                     <li class="flex items-start">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <img src="{{ asset('images/tailwind-icon.png') }}" alt="Tailwind"
                                 class="h-6 w-6 mr-3 mt-1 object-contain">
                         </div>
@@ -58,7 +68,6 @@
                         @endif
                         <form method="POST" action="{{ route('logout') }}" class="w-full">
                             @csrf
-                            @method('DELETE')
                             <button type="submit" class="btn-secondary w-full px-4 py-2 text-center">
                                 Log Out
                             </button>
@@ -78,10 +87,8 @@
             @endguest
         </div>
 
-        <!-- Right Column -->
         <div
-            class="w-full md:w-1/2 bg-gradient-to-br from-blue-600 to-cyan-600 flex flex-col items-center justify-center p-8 md:p-12 text-center relative">
-            {{-- You can replace this div with an <img> tag or a more complex background --}}
+            class="w-full md:w-1/2 bg-linear-to-br from-blue-600 to-cyan-600 flex flex-col items-center justify-center p-8 md:p-12 text-center relative">
             <div class="absolute inset-0 bg-gray-800 opacity-50 mix-blend-overlay"
                 style="background-image: url('/images/showcase.avif'); background-size: cover; background-position: center;">
             </div>

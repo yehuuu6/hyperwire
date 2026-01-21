@@ -1,3 +1,77 @@
+<?php
+
+use App\Models\User;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Masmerise\Toaster\Toaster;
+
+new
+#[Layout('layouts.auth')]
+#[Title('Reset Password - Hyper Wire')]
+class extends Component
+{
+    use WithRateLimiting;
+
+    public string $token = '';
+
+    public string $email = '';
+
+    public string $password = '';
+
+    public string $password_confirmation = '';
+
+    public function resetPassword()
+    {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            Toaster::error("You have made too many requests. Please try again in {$exception->minutesUntilAvailable} minutes.");
+
+            return;
+        }
+
+        try {
+            $this->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:8|confirmed',
+                'token' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            Toaster::error($e->validator->errors()->first());
+
+            return;
+        }
+
+        $status = Password::reset(
+            $this->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        if ($status === Password::PASSWORD_RESET) {
+            return redirect(route('login'))->success('Password reset successfully. You can now login with your new password.');
+        } else {
+            Toaster::error('Password reset failed! Try again later.');
+        }
+    }
+};
+?>
+
 <div class="p-6 xl:p-10 rounded-lg flex-1">
     <div class="flex items-center justify-between gap-5">
         <div class="size-9 rounded-full bg-blue-700 shadow-blue-500/10">
