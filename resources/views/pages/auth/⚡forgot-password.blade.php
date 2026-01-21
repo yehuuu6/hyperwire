@@ -1,3 +1,67 @@
+<?php
+
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Renderless;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Masmerise\Toaster\Toaster;
+
+new
+#[Layout('layouts.auth')]
+#[Title('Forgot Password - Hyper Wire')]
+class extends Component
+{
+    use WithRateLimiting;
+
+    public string $email = '';
+
+    #[Renderless]
+    public function sendResetLink()
+    {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            Toaster::error("You have made too many requests. Please try again in {$exception->minutesUntilAvailable} minutes.");
+
+            return;
+        }
+
+        $messages = [
+            'email.required' => 'Email address is required',
+            'email.email' => 'Please enter a valid email address',
+            'email.max' => 'Email address must be less than :max characters',
+        ];
+
+        try {
+            $this->validate([
+                'email' => 'required|email|max:255',
+            ], $messages);
+        } catch (ValidationException $e) {
+            $message = $e->getMessage();
+            Toaster::error($message);
+
+            return;
+        }
+
+        try {
+            $status = Password::sendResetLink(['email' => $this->email]);
+        } catch (ValidationException $e) {
+            $message = $e->getMessage();
+            Toaster::error($message);
+
+            return;
+        }
+
+        // Always display the same message
+        Toaster::info('If an account exists with this email, a password reset link will be sent.');
+    }
+};
+?>
+
 <div class="p-6 xl:p-10 rounded-lg flex-1">
     <div class="flex items-center justify-between gap-5">
         <div class="size-9 rounded-full bg-blue-700 shadow-blue-500/10">

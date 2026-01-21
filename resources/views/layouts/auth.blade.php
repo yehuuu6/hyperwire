@@ -4,16 +4,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{{ $title ?? config('app.name') }}</title>
+
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:200,300,400,500,600,700,800" rel="stylesheet" />
-        <title>{{ $title ?? config('app.name') }}</title>
-        @livewireStyles
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        @livewireStyles
     </head>
 
     <body class="min-h-svh antialiased font-inter bg-gray-900 text-gray-900 flex flex-col">
         <main
-            class="flex-1 relative bg-gradient-to-br from-gray-900 to-gray-800 text-gray-300 flex flex-col justify-center items-center">
+            class="flex-1 relative bg-linear-to-br from-gray-900 to-gray-800 text-gray-300 flex flex-col justify-center items-center">
             <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
                 <div class="absolute top-0 left-10 w-1/2 h-1/2 bg-blue-500/10 rounded-full blur-3xl animate-pulse">
                 </div>
@@ -59,7 +63,7 @@
             </div>
         </main>
         <x-toaster-hub />
-        @livewireScriptConfig
+        @livewireScripts
     </body>
 
 </html>

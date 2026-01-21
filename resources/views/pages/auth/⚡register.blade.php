@@ -1,3 +1,77 @@
+<?php
+
+use App\Models\User;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Masmerise\Toaster\Toaster;
+
+new
+#[Layout('layouts.auth')]
+#[Title('Register - Hyper Wire')]
+class extends Component
+{
+    use WithRateLimiting;
+
+    public string $name;
+
+    public string $surname;
+
+    public string $email;
+
+    public string $password;
+
+    public string $password_confirmation;
+
+    public bool $terms;
+
+    public function register()
+    {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            Toaster::error("You have made too many requests. Please try again in {$exception->minutesUntilAvailable} minutes.");
+
+            return;
+        }
+
+        try {
+            $this->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'surname' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'terms' => ['required', 'accepted'],
+            ]);
+        } catch (ValidationException $exception) {
+            Toaster::error($exception->getMessage());
+
+            return;
+        }
+
+        $attributes = [
+            'name' => $this->name,
+            'surname' => $this->surname,
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
+
+        $user = User::create($attributes);
+
+        Auth::login($user);
+
+        event(new Registered($user));
+
+        return redirect(route('verification.notice'))->success('Welcome to the '.config('app.name').'!');
+    }
+};
+?>
+
 <div class="p-6 xl:p-10 rounded-lg flex-1">
     <div class="flex items-center justify-between gap-5">
         <div class="size-9 rounded-full bg-blue-700 shadow-blue-500/10">
