@@ -15,7 +15,7 @@ A clean Laravel Livewire starter kit without Flux and code mess!
 - **Minimal Boilerplate:** Focus on your application's core logic with minimal, easy-to-understand boilerplate code and components.
 - **Email OTP Verification:** Enhanced security with Email OTP (One-Time Password) verification instead of traditional link-based verification.
   ![Email OTP Verification](.github/opt.png)
-- **Rate Limiter:** Limit user actions using the [Livewire Rate Limiter](https://github.com/yehuuu6/livewire-rate-limiting) package.
+- **Rate Limiter:** Limit user actions using the [Livewire Rate Limiter](https://github.com/danharrin/livewire-rate-limiting) package.
 - **Toast Notifications:** Beautiful toast notifications thanks to the [Livewire Toaster](https://github.com/masmerise/livewire-toaster) package.
 
 ## Installation
@@ -39,4 +39,4 @@ Below is a list of all the technologies this starter kit has been **built with**
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/yehuuu6/hyperwire/blob/main/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com//hyperwire/blob/main/LICENSE) for more information.
